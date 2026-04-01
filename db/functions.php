@@ -45,3 +45,52 @@ function getUserByEmail($email){
         echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
     }
 }
+
+
+function getInsegnamenti(){
+    global $pdo;
+
+    try{
+        $sql = "SELECT materie.nome, docenti.nome, docenti.cognome FROM materie, docenti, insegnamenti";
+        $result = $pdo->prepare($sql);
+        $result->execute();
+
+        $materie = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $materie;
+    }catch(PDOException $e){
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+function getMaterie(){
+    global $pdo;
+
+    try{
+        $sql = "SELECT nome FROM materie";
+        $result = $pdo->prepare($sql);
+        $result->execute();
+
+        $materie = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $materie;
+    }catch(PDOException $e){
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
+
+function getDocenti(){
+    global $pdo;
+
+    try{
+        $sql = "SELECT nome, cognome FROM docenti";
+        $result = $pdo->prepare($sql);
+        $result->execute();
+
+        $docenti = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $docenti;
+    }catch(PDOException $e){
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
