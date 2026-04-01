@@ -1,49 +1,89 @@
 <?php
-require_once "db/connection.php";
+require_once "components/session.php";
+
+if(isset($_SESSION['username'])){
+    header("Location: dashboard.php");
+}
+
 require_once "db/functions.php";
-require_once 'db/connection.php';
-require_once 'components/navbar.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$errors = [];
+$email = "";
+$password = "";
 
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $sql = "SELECT * FROM utenti WHERE email = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email]);
-
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($password, $user['password_hash'])) {
-
-        $_SESSION['user'] = $user['id'];
-        $_SESSION['ruolo'] = $user['ruolo'];
-
-        header("dashboard.php");
-
+    if (empty($_POST["email"])) { // in questo caso, visto che i campi di login sono  obbligatori, isset non serve
+        $errors[] = "email mancante";
     } else {
-        $errore = "Credenziali non valide";
+        $email = $_POST["email"];
+    }
+
+    if (empty($_POST["password"])) {
+        $errors[] = "Password mancante";
+    } else {
+        $password = $_POST["password"];
+    }
+
+
+    if (empty($errors)) { // faccio check login solo se non ci sono stati errori
+        $loginError = checkLogin($email, $password);
+        
+        if (empty($loginError)) {
+            $utente = getUserByEmail($email);
+            $_SESSION["email"] = $utente['email']; // creo la sessione con la mail
+            $_SESSION["ruolo"] = $utente['ruolo'];
+            header("Location: dashboard.php"); // mando l'utente alla dashboard
+            exit;
+        } else {
+            $errors[] = $loginError;
+        }
     }
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Fastercom</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    
+    <main>
+        <!-- stampo gli errori (se ci sono stati) -->
+        <?php if (!empty($errors)){ ?>
+            <div class="errors">
+                <ul>
+                    <?php foreach ($errors as $error){ ?>
+                        <li style="color: red"><?= $error ?></li>
+                    <?php }; ?>
+                </ul>
+            </div>
+        <?php }; ?>
 
-<h2>Login</h2>
+        <form method="POST">
+            <label for="email">Email</label>
+            <input 
+                type="text" 
+                name="email" 
+                placeholder="Inserisci email..."
+            >
 
-<form method="POST">
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <button type="submit">Accedi</button>
-</form>
+            <label for="password">Password</label>
+            <input 
+                type="password" 
+                name="password" 
+                placeholder="Inserisci password..."
+            >
 
+            <button type="submit">Login</button>
+        </form>
+
+    </main>
+
+    <?php require_once "components/footer.php" ?>
 </body>
 </html>
-
-<?php require_once 'components/footer.php'; ?>
