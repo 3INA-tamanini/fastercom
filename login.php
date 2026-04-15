@@ -1,7 +1,7 @@
 <?php
 require_once "components/session.php";
 
-if(isset($_SESSION['username'])){
+if (isset($_SESSION['username'])) {
     header("Location: dashboard.php");
 }
 
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($errors)) { // faccio check login solo se non ci sono stati errori
         $loginError = checkLogin($email, $password);
-        
+
         if (empty($loginError)) {
             $utente = getUserByEmail($email);
             $_SESSION["email"] = $utente['email']; // creo la sessione con la mail
@@ -44,46 +44,51 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Fastercom</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
-    
     <main>
-        <!-- stampo gli errori (se ci sono stati) -->
-        <?php if (!empty($errors)){ ?>
-            <div class="errors">
-                <ul>
-                    <?php foreach ($errors as $error){ ?>
-                        <li style="color: red"><?= $error ?></li>
-                    <?php }; ?>
-                </ul>
+        <form class="form" method="POST">
+            <p id="heading">Login</p>
+
+            <div class="field">
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="Inserisci email"
+                    class="input-field">
             </div>
-        <?php }; ?>
 
-        <form method="POST">
-            <label for="email">Email</label>
-            <input 
-                type="text" 
-                name="email" 
-                placeholder="Inserisci email..."
-            >
+            <div class="field">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Inserisci password"
+                    class="input-field">
+            </div>
 
-            <label for="password">Password</label>
-            <input 
-                type="password" 
-                name="password" 
-                placeholder="Inserisci password..."
-            >
+            <?php if (!empty($errors)) { ?>
+                <div class="errors">
+                    <?php foreach ($errors as $error) { ?>
+                        <p><?= $error ?></p>
+                    <?php }; ?>
+                </div>
+            <?php }; ?>
 
-            <button type="submit">Login</button>
+            <div class="btn">
+                <button type="submit" class="button1">Login</button>
+            </div>
         </form>
 
     </main>
 
     <?php require_once "components/footer.php" ?>
 </body>
+
 </html>
