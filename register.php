@@ -1,11 +1,8 @@
 <?php
-require_once "components/session.php";
-
-if(isset($_SESSION['username'])){
-    header("Location: dashboard.php");
-}
-
-require_once "db/functions.php";
+require_once 'components/session.php';
+require_once 'db/connection.php';
+require_once 'components/navbar.php';
+require_once 'db/functions.php';
 
 $errors = [];
 $email = "";
@@ -13,7 +10,7 @@ $password = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    if (empty($_POST["email"])) { // in questo caso, visto che i campi di login sono  obbligatori, isset non serve
+    if (empty($_POST["email"])) {
         $errors[] = "email mancante";
     } else {
         $email = $_POST["email"];
@@ -25,18 +22,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $password = $_POST["password"];
     }
 
-
-    if (empty($errors)) { // faccio check login solo se non ci sono stati errori
-        $loginError = checkLogin($email, $password);
-        
-        if (empty($loginError)) {
-            $utente = getUserByEmail($email);
-            $_SESSION["email"] = $utente['email']; // creo la sessione con la mail
-            $_SESSION["ruolo"] = $utente['ruolo'];
-            header("Location: dashboard.php"); // mando l'utente alla dashboard
-            exit;
-        } else {
-            $errors[] = $loginError;
+    if (empty($errors)) { 
+        if(createUser($email, $password)){
+            header("Location: login.php");
         }
     }
 }
@@ -47,13 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Fastercom</title>
+    <title>register</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <?php require_once "components/navbar.php"; ?>
-    <main>
-        <!-- stampo gli errori (se ci sono stati) -->
+    <main>       
         <?php if (!empty($errors)){ ?>
             <div class="errors">
                 <ul>
@@ -79,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 placeholder="Inserisci password..."
             >
 
-            <button type="submit">Login</button>
+            <button type="submit">register</button>
         </form>
 
     </main>
