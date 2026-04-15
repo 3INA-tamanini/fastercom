@@ -45,6 +45,20 @@ function getUserByEmail($email)
     }
 }
 
+function CreateUser($email, $password){
+    global $pdo;
+    $ruolo="studente";
+    $hashedPassword=password_hash($password, PASSWORD_BCRYPT);
+    try{
+        $sql = "INSERT INTO utenti (email,password_hash,ruolo) VALUES (?,?,?)";
+        $stmt = $pdo->prepare($sql);
+        return $stmt->execute([$email,$hashedPassword,$ruolo]);
+    }
+    catch(PDOException $e){
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
 
 function getInsegnamenti()
 {
