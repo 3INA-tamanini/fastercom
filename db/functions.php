@@ -140,9 +140,8 @@ WHERE classi.id = ?";
     }
 }
 
-function CreateUser($email, $password){
+function CreateUser($email, $password,$ruolo){
     global $pdo;
-    $ruolo="studente";
     $hashedPassword=password_hash($password, PASSWORD_BCRYPT);
     try{
         $sql = "INSERT INTO utenti (email,password_hash,ruolo) VALUES (?,?,?)";
