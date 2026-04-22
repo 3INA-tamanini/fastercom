@@ -8,10 +8,17 @@ $errors = [];
 $email = "";
 $password = "";
 
+$ruolo = $_SESSION['ruolo'];
+
+if($ruolo != "admin"){
+    header("Location: dashboard");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($_POST["email"])) {
-        $errors[] = "email mancante";
+        $errors[] = "Email mancante";
     } else {
         $email = $_POST["email"];
     }
@@ -21,10 +28,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         $password = $_POST["password"];
     }
+    if (empty($_POST["ruolo"])) {
+        $errors[] = "Ruolo mancante";
+    } else {
+        $ruolo = $_POST["ruolo"];
+    }
 
     if (empty($errors)) { 
-        if(createUser($email, $password)){
-            header("Location: login.php");
+        if(createUser($email, $password, $ruolo)){
+            echo("utente creato");
         }
     }
 }
@@ -51,22 +63,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
         <?php }; ?>
 
-        <form method="POST">
-            <label for="email">Email</label>
-            <input 
-                type="text" 
-                name="email" 
-                placeholder="Inserisci email..."
-            >
+        <form method="POST" class="form">
 
-            <label for="password">Password</label>
-            <input 
-                type="password" 
-                name="password" 
-                placeholder="Inserisci password..."
-            >
+            <h2 id="heading">Register</h2>
 
-            <button type="submit">register</button>
+            <div class="field">
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="Inserisci email..."
+                    class="input-field">
+            </div>
+
+            <div class="field">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Inserisci password..."
+                    class="input-field">
+            </div>
+
+            <div class="field">
+                <input
+                    type="ruolo"
+                    name="ruolo"
+                    placeholder="Inserisci ruolo..."
+                    class="input-field">
+            </div>
+
+            <div class="btn">
+                <button type="submit" class="button1">Register</button>
+            </div>
+
         </form>
 
     </main>
