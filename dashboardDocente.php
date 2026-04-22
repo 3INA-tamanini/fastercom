@@ -52,9 +52,9 @@ if(count($studenti)==0){
 <ul>
     <?php foreach ($studenti as $studente) {?>
     <li> <?= $studente['nome']?> </li>
-</ul>
-<?php } }?>
 
+<?php } }?>
+</ul>
 
 
 
