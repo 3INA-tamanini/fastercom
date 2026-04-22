@@ -152,3 +152,37 @@ function CreateUser($email, $password,$ruolo){
         echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
     }
 }
+
+function getAllStudents()
+{
+    global $pdo;
+
+    try {
+        $sql = "SELECT nome, cognome FROM Studenti";
+        $result = $pdo->prepare($sql);
+        $result->execute();
+
+        $utente = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $utente;
+    } catch (PDOException $e) {
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
+function getAllTeachers()
+{
+    global $pdo;
+
+    try {
+        $sql = "SELECT nome, cognome FROM Docenti";
+        $result = $pdo->prepare($sql);
+        $result->execute();
+
+        $utente = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $utente;
+    } catch (PDOException $e) {
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}

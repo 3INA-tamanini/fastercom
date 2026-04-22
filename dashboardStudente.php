@@ -11,7 +11,7 @@ if (!isset($_SESSION['email'])) {
 $ruolo = $_SESSION['ruolo'];
 
 if($ruolo == "docente"){
-    header("Location: dashboard");
+    header("Location: dashboard.php");
     exit();
 }
 
