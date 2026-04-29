@@ -1,5 +1,5 @@
 
 <footer>
-    <p>Luca Tamanini - 2026</p>
+    <p>Luca Tamanini, Matteo Pompilio, Davide Ghetta - 2026</p>
 </footer>
 

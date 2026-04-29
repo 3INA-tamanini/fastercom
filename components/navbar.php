@@ -1,20 +1,24 @@
-<?php 
+<?php
 require_once 'components/session.php';
 require_once 'db/functions.php';
 ?>
 
-
 <nav>
-    <a href="register.php">register</a>
-    <a href="login.php">login</a>
-    <?php if(isset($_SESSION['ruolo'])){
-        if($_SESSION['ruolo'] === 'studente'){ ?>
-        <a href="dashboardStudente.php">dashboard</a>
-        <a href="logout.php">Logout</a>
-    <?php }} ?>
-    <?php if(isset($_SESSION['ruolo'])){
-        if($_SESSION['ruolo'] === 'docente'){ ?>
-        <a href="dashboardDocente.php">dashboard</a>
-        <a href="logout.php">Logout</a>
-    <?php }} ?>
+    <div>
+        <div class="registr"><a href="register.php">Register</a></div>
+        <div class="registr"><a href="login.php">Login</a></div>
+        <?php if (isset($_SESSION['ruolo'])) {
+            if ($_SESSION['ruolo'] === 'studente') { ?>
+                <div class="registr"><a href="dashboardStudente.php">Dashboard</a></div>
+                <div class="registr"><a href="logout.php">Logout</a></div>
+
+        <?php }
+        } ?>
+        <?php if (isset($_SESSION['ruolo'])) {
+            if ($_SESSION['ruolo'] === 'docente') { ?>
+                <div class="registr"><a href="dashboardDocente.php">Dashboard</a></div>
+                <div class="registr"><a href="logout.php">Logout</a></div>
+        <?php }
+        } ?>
+    </div>
 </nav>

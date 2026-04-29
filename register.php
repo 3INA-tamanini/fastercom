@@ -11,7 +11,7 @@ $password = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($_POST["email"])) {
-        $errors[] = "email mancante";
+        $errors[] = "Email mancante";
     } else {
         $email = $_POST["email"];
     }
@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $password = $_POST["password"];
     }
 
-    if (empty($errors)) { 
-        if(createUser($email, $password)){
+    if (empty($errors)) {
+        if (createUser($email, $password)) {
             header("Location: login.php");
         }
     }
@@ -32,45 +32,55 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>register</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
     <?php require_once "components/navbar.php"; ?>
-    <main>       
-        <?php if (!empty($errors)){ ?>
+    <main>
+
+        <form method="POST" class="form">
+
+            <h2 id="heading">Register</h2>
+
+            <div class="field">
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="Inserisci email..."
+                    class="input-field">
+            </div>
+
+            <div class="field">
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Inserisci password..."
+                    class="input-field">
+            </div>
+
+            <?php if (!empty($errors)) { ?>
             <div class="errors">
-                <ul>
-                    <?php foreach ($errors as $error){ ?>
-                        <li style="color: red"><?= $error ?></li>
+                    <?php foreach ($errors as $error) { ?>
+                        <p><?= $error ?></p>
                     <?php }; ?>
-                </ul>
             </div>
         <?php }; ?>
 
-        <form method="POST">
-            <label for="email">Email</label>
-            <input 
-                type="text" 
-                name="email" 
-                placeholder="Inserisci email..."
-            >
+            <div class="btn">
+                <button type="submit" class="button1">Register</button>
+            </div>
 
-            <label for="password">Password</label>
-            <input 
-                type="password" 
-                name="password" 
-                placeholder="Inserisci password..."
-            >
-
-            <button type="submit">register</button>
         </form>
 
     </main>
 
     <?php require_once "components/footer.php" ?>
 </body>
+
 </html>

@@ -1,17 +1,27 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  box-sizing: inherit;
 }
 
-body{
-    background-color: whitesmoke;
+html {
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.errors{
-    color: red;
-    font-size: 40px;
-    margin-top: 60px;
-    text-align: center;
+body {
+  background-color: whitesmoke;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.errors {
+  color: red;
+  font-size: 40px;
+  margin-top: 60px;
+  text-align: center;
 }
 
 .form {
@@ -25,7 +35,7 @@ body{
   border-radius: 25px;
   transition: .4s ease-in-out;
   width: 30%;
-  height: 800px;
+  height: 700px;
   margin: auto;
   margin-top: 40px;
   position: relative;
@@ -54,7 +64,8 @@ body{
   outline: none;
   color: white;
   background-color: #171717;
-  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);  
+  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+  margin-bottom: 30px;
 }
 
 .input-field {
@@ -88,7 +99,7 @@ body{
   transition: .4s ease-in-out;
   background-color: #252525;
   color: white;
-  font-size: larger;  
+  font-size: larger;
 }
 
 .button1:hover {
@@ -96,11 +107,68 @@ body{
   color: white;
 }
 
-footer{
-    background-color: #171717;
-    color: white;
-    font-size: larger;
-    text-align: center;
-    margin-top: 3%;
-    padding: 3%;
+footer {
+  background-color: #171717;
+  color: white;
+  font-size: larger;
+  text-align: center;
+  margin-top: 3%;
+  padding: 3%;
+}
+
+nav {
+  padding: 11px;
+  background-color: #171717;
+  text-align: center;
+  font-size: larger;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+}
+
+nav div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.registr {
+  flex: 1;
+  text-align: center;
+}
+
+.registr a {
+  display: block;
+  padding: 15px 0;
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.registr:hover {
+  background-color: #333;
+  color: #171717;
+  font-size: larger;
+}
+
+.dih {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 25px;
+}
+
+.tabella {
+  display: flex;
+  margin: auto;
+  width: 60%;
+  text-align: center;
+}
+
+table {
+  text-align: center;
+  font-size: 30px;
 }
