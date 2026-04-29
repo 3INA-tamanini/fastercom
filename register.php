@@ -8,6 +8,13 @@ $errors = [];
 $email = "";
 $password = "";
 
+$ruolo = $_SESSION['ruolo'];
+
+if ($ruolo != "admin") {
+    header("Location: dashboard");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($_POST["email"])) {
@@ -21,10 +28,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         $password = $_POST["password"];
     }
+    if (empty($_POST["ruolo"])) {
+        $errors[] = "Ruolo mancante";
+    } else {
+        $ruolo = $_POST["ruolo"];
+    }
 
     if (empty($errors)) {
-        if (createUser($email, $password)) {
-            header("Location: login.php");
+        if (createUser($email, $password, $ruolo)) {
+            echo ("utente creato");
         }
     }
 }
@@ -43,10 +55,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
     <?php require_once "components/navbar.php"; ?>
     <main>
+        <?php if (!empty($errors)) { ?>
+            <div class="errors">
+                <ul>
+                    <?php foreach ($errors as $error) { ?>
+                        <li style="color: red"><?= $error ?></li>
+                    <?php }; ?>
+                </ul>
+            </div>
+        <?php }; ?>
 
         <form method="POST" class="form">
 
-            <h2 id="heading">Register</h2>
+            <h2 id="heading">Inserisci Utente</h2>
 
             <div class="field">
                 <input
@@ -64,16 +85,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     class="input-field">
             </div>
 
-            <?php if (!empty($errors)) { ?>
-            <div class="errors">
-                    <?php foreach ($errors as $error) { ?>
-                        <p><?= $error ?></p>
-                    <?php }; ?>
+            <div class="field">
+                <select id="ruolo" name="ruolo">
+                    <option value="Studente">Studente</option>
+                    <option value="Docente">Docente</option>
+                    <option value="Admin">Admin</option>
+                </select>
             </div>
-        <?php }; ?>
 
             <div class="btn">
-                <button type="submit" class="button1">Register</button>
+                <button type="submit" class="button1">Inserisci</button>
             </div>
 
         </form>

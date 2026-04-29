@@ -1,24 +1,29 @@
 <?php
 require_once 'components/session.php';
 require_once 'db/functions.php';
-?>
 
-<nav>
-    <div>
-        <div class="registr"><a href="register.php">Register</a></div>
-        <div class="registr"><a href="login.php">Login</a></div>
+$ruolo = $_SESSION['ruolo'];
+
+if ($ruolo != "admin") { ?>
+    <nav>
+        <a href="register.php">register</a>
+        <a href="login.php">login</a>
         <?php if (isset($_SESSION['ruolo'])) {
             if ($_SESSION['ruolo'] === 'studente') { ?>
-                <div class="registr"><a href="dashboardStudente.php">Dashboard</a></div>
-                <div class="registr"><a href="logout.php">Logout</a></div>
-
+                <a href="dashboardStudente.php">dashboard</a>
+                <a href="logout.php">Logout</a>
         <?php }
         } ?>
         <?php if (isset($_SESSION['ruolo'])) {
             if ($_SESSION['ruolo'] === 'docente') { ?>
-                <div class="registr"><a href="dashboardDocente.php">Dashboard</a></div>
-                <div class="registr"><a href="logout.php">Logout</a></div>
+                <a href="dashboardDocente.php">dashboard</a>
+                <a href="logout.php">Logout</a>
         <?php }
         } ?>
-    </div>
-</nav>
+    </nav>
+<?php } else { ?>
+    <nav>
+        <a href="dashboardAdmin.php">dashboard Amministratori</a>
+        <a href="logout.php">Logout</a>
+    </nav>
+<?php } ?>
