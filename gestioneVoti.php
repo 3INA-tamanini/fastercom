@@ -16,13 +16,6 @@ if ($ruolo == "studente") {
 }
 
 $docente = getDocenteByEmail($_SESSION['email']);
-$classe = getClassByTeacher($docente['nome'], $docente['cognome']);
-
-$studenti = [];
-if($_SERVER['REQUEST_METHOD'] == "POST") {
-    $classe_id = $_POST['classe'];
-    $studenti = getStudentiByClass($classe_id);
-}
 
 ?>
 
@@ -31,35 +24,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>gestionevoti</title>
 </head>
 <body>
-    <h1>Dashboard Docenti</h1>
-
-<form method="POST" action="">
-    <select name="classe">
-        <?php foreach ($classe as $c) { ?>
-            <option value="<?php echo $c['id'] ?>"><?php echo $c['nome'] ?></option>
-        <?php } ?>
-    </select>
-    <input type="submit">
-</form>
-
-<?php 
-if(count($studenti)==0){
-    echo "no studenti";
-}else{?> 
-<ul>
-    <?php foreach ($studenti as $studente) {?>
-    <li> <?= $studente['nome']?> </li>
-
-<?php } }?>
-</ul>
+    <h1>gestione Voti</h1>
 
 
 <div class="btn">
     <a href="gestioneVoti.php"><button>gestisci voti</button></a>
 </div>
+
+
 </body>
 </html>
 

@@ -186,3 +186,97 @@ function getAllTeachers()
         echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
     }
 }
+
+function getAllClasses()
+{
+    global $pdo;
+
+    try {
+        $sql = "SELECT id, nome FROM classi";
+        $result = $pdo->prepare($sql);
+        $result->execute();
+
+        $utente = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $utente;
+    } catch (PDOException $e) {
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
+
+function CreateMateria($materia){
+    global $pdo;
+    try{
+        $sql = "INSERT INTO materie (nome) VALUES (?)";
+        $stmt = $pdo->prepare($sql);
+        return $stmt->execute([$materia]);
+    }
+    catch(PDOException $e){
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
+
+function assegnaDocente($docente, $materia, $classe){
+    global $pdo;
+
+    try {
+        $sql = "INSERT INTO insegnamenti (docente_id,materia_id,classe_id) VALUES(?,?,?)";
+        $result = $pdo->prepare($sql);
+        $result->execute([$docente,$materia,$classe]);
+
+        $classe = $result->fetchAll(PDO::FETCH_ASSOC);
+        return $classe;
+    } catch (PDOException $e) {
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
+function inserisciVoto($valore, $tipo,$insegnamentoid,$studenteid,$nota){
+    global $pdo;
+    try{
+        $sql = "INSERT INTO voti (valore, tipo, insegnamento_id, studente_id, nota) VALUES (?,?,?,?,?)";
+        $stmt = $pdo->prepare($sql);
+        return $stmt->execute([$valore,$tipo,$insegnamentoid,$studenteid,$nota]);
+    }
+    catch(PDOException $e){
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
+function votiStudente($idStudente){
+    global $pdo;
+
+    try {
+        $sql = "SELECT valore, tipo, insengamento_id, nota FROM voti WHERE studente_id = ?";
+        $result = $pdo->prepare($sql);
+        $result->execute([$idStudente]);
+
+        $votiStudente = $result->fetch(PDO::FETCH_ASSOC);
+        return $votiStudente;
+    } catch (PDOException $e) {
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
+function numeroMaterie(){
+    global $pdo;
+
+    try {
+        $sql = "SELECT COUNT(id) FROM materie";
+        $result = $pdo->prepare($sql);
+        $result->execute();
+
+        $numero = $result->fetch(PDO::FETCH_ASSOC);
+        return $numero;
+    } catch (PDOException $e) {
+        echo "<script>alert('Errore" . $e->getMessage() . "')</script>";
+    }
+}
+
+function mediaStudente($idstudente){
+    $votiStudente = votiStudente($idstudente);
+    foreach ($votiStudente as $row) {
+    }
+}

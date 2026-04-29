@@ -15,24 +15,25 @@ if($ruolo != "admin"){
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    if (empty($_POST["materia"])) {
-        $errors[] = "materia mancante";
+    if (empty($_POST["docente_id"])) {
+        $errors[] = "ID docente mancante";
     } else {
-        $materia = $_POST["materia"];
+        $docente_id = $_POST["docente_id"];
     }
-    if (empty($_POST["classe"])) {
-        $errors[] = "classe mancante";
+
+    if (empty($_POST["materia_id"])) {
+        $errors[] = "ID materia mancante";
     } else {
-        $classe = $_POST["classe"];
+        $materia_id = $_POST["materia_id"];
     }
-    if (empty($_POST["docente"])) {
-        $errors[] = "docente mancante";
+    if (empty($_POST["classe_id"])) {
+        $errors[] = "ID classe mancante";
     } else {
-        $docente = $_POST["docente"];
+        $classe_id = $_POST["classe_id"];
     }
 
     if (empty($errors)) { 
-        if(assegnaDocente($docente, $materia, $classe)){
+        if(assegnaDocente($docente_id, $materia_id, $classe_id)){
             echo("docente assegnato");
         }
     }
@@ -44,11 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>assegna docenti</title>
+    <title>register</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <?php require_once "components/navbarAdmin.php"; ?>
+    <?php require_once "components/navbar.php"; ?>
     <main>       
         <?php if (!empty($errors)){ ?>
             <div class="errors">
@@ -62,32 +63,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <form method="POST" class="form">
 
-            <h2 id="heading">Register</h2>
+            <h2 id="heading">Assegna Docente</h2>
 
             <div class="field">
                 <input
-                    type="text"
-                    name="docente"
-                    placeholder="Inserisci id docente..."
+                    type="number"
+                    name="docente_id"
+                    placeholder="Inserisci ID docente..."
                     class="input-field">
             </div>
+
             <div class="field">
                 <input
-                    type="text"
-                    name="materia"
-                    placeholder="Inserisci id materia..."
+                    type="number"
+                    name="materia_id"
+                    placeholder="Inserisci ID materia..."
                     class="input-field">
             </div>
+
             <div class="field">
                 <input
-                    type="text"
-                    name="classe"
-                    placeholder="Inserisci id classe..."
+                    type="number"
+                    name="classe_id"
+                    placeholder="Inserisci ID classe..."
                     class="input-field">
             </div>
 
             <div class="btn">
-                <button type="submit" class="button1">Inserisci</button>
+                <button type="submit" class="button1">Assegna</button>
             </div>
 
         </form>

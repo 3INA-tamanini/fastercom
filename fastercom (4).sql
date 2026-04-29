@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 15, 2026 alle 10:18
+-- Creato il: Apr 29, 2026 alle 09:43
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -82,7 +82,8 @@ CREATE TABLE `insegnamenti` (
 INSERT INTO `insegnamenti` (`id`, `docente_id`, `materia_id`, `classe_id`) VALUES
 (1, 1, 1, 1),
 (2, 2, 2, 1),
-(4, 1, 1, 2);
+(4, 1, 1, 2),
+(7, 1, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,8 @@ INSERT INTO `materie` (`id`, `nome`) VALUES
 (5, 'sistemi e reti'),
 (6, 'storia'),
 (7, 'gpoi'),
-(8, 'inglese');
+(8, 'inglese'),
+(9, 'fovnite');
 
 -- --------------------------------------------------------
 
@@ -156,7 +158,8 @@ INSERT INTO `utenti` (`id`, `email`, `password_hash`, `ruolo`) VALUES
 (2, 'luca.tamanini@buonarroti.tn.it', '$2a$12$qOEH5rQu12fqPXOwYz1YJuJwL0IKBDzuD2a7m75JlNV4imFRmr3A6', 'admin'),
 (3, 'studente@gmail.com', '$2a$12$KLhU2HgvC6RchB/o0PoLoeSPfpl6MdaT67qxwqQznKyFCTK5O7dW6', 'studente'),
 (4, 'docente@gmail.com', '$2a$12$kwu8y1D/Mg0KRlNuI9d//OsliVq9.uszuB6ZT8QfXy8a02S7ei7i.', 'docente'),
-(5, 'docente2@gmail.com', '$2a$12$kwu8y1D/Mg0KRlNuI9d//OsliVq9.uszuB6ZT8QfXy8a02S7ei7i.', 'docente');
+(5, 'docente2@gmail.com', '$2a$12$kwu8y1D/Mg0KRlNuI9d//OsliVq9.uszuB6ZT8QfXy8a02S7ei7i.', 'docente'),
+(6, 'admin@gmail.com', '$2y$10$h4uKttwdLqbyIgFF8eYvaeoiFZuaalG6F5ExenoWSwiiGZDa9s0aG', 'admin');
 
 -- --------------------------------------------------------
 
@@ -168,7 +171,7 @@ CREATE TABLE `voti` (
   `id` int(11) NOT NULL,
   `valore` decimal(10,0) NOT NULL,
   `tipo` varchar(20) NOT NULL,
-  `data` date NOT NULL,
+  `data` date NOT NULL DEFAULT current_timestamp(),
   `nota` varchar(100) DEFAULT NULL,
   `insegnamento_id` int(11) DEFAULT NULL,
   `studente_id` int(11) DEFAULT NULL
@@ -248,13 +251,13 @@ ALTER TABLE `docenti`
 -- AUTO_INCREMENT per la tabella `insegnamenti`
 --
 ALTER TABLE `insegnamenti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT per la tabella `materie`
 --
 ALTER TABLE `materie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la tabella `studenti`
@@ -266,7 +269,7 @@ ALTER TABLE `studenti`
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la tabella `voti`

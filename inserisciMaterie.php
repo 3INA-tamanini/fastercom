@@ -38,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <?php require_once "components/navbarAdmin.php"; ?>
     <main>       
         <?php if (!empty($errors)){ ?>
             <div class="errors">
@@ -52,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <form method="POST" class="form">
 
-            <h2 id="heading">Register</h2>
+            <h2 id="heading">Inserimento</h2>
 
             <div class="field">
                 <input
