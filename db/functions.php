@@ -275,8 +275,21 @@ function numeroMaterie(){
     }
 }
 
-function mediaStudente($idstudente){
-    $votiStudente = votiStudente($idstudente);
-    foreach ($votiStudente as $row) {
+function mediaStudente($idStudente){
+    global $pdo;
+
+    try {
+        $sql = "SELECT insegnamento_id, AVG(valore) as media 
+                FROM voti 
+                WHERE studente_id = ? 
+                GROUP BY insegnamento_id";
+
+        $result = $pdo->prepare($sql);
+        $result->execute([$idStudente]);
+
+        return $result->fetchAll(PDO::FETCH_KEY_PAIR);
+
+    } catch (PDOException $e) {
+        echo "<script>alert('Errore: " . $e->getMessage() . "')</script>";
     }
 }

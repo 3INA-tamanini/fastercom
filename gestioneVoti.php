@@ -31,7 +31,7 @@ $docente = getDocenteByEmail($_SESSION['email']);
 
 
 <div class="btn">
-    <a href="gestioneVoti.php"><button>gestisci voti</button></a>
+    <a href="inserisciVoti.php"><button>inserisci voti</button></a>
 </div>
 
 
