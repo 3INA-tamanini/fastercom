@@ -7,7 +7,6 @@ $ruolo = $_SESSION['ruolo'];
 if ($ruolo != "admin") { ?>
     <nav>
         <div>
-        <div class="registr"><a href="register.php">register</a></div>
         <div class="registr"><a href="login.php">login</a></div>
         <?php if (isset($_SESSION['ruolo'])) {
             if ($_SESSION['ruolo'] === 'studente') { ?>

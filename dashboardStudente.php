@@ -35,6 +35,7 @@ $insegnamenti = getInsegnamenti();
 </head>
 
 <body>
+  <main>
   <h1 class="dih">DASHBOARD STUDENTI</h1>
 
   <div class="tabella">
@@ -57,6 +58,7 @@ $insegnamenti = getInsegnamenti();
 
     </table>
   </div>
+  </main>
 </body>
 
 </html>

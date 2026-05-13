@@ -12,15 +12,26 @@ html {
 
 body {
   background-color: whitesmoke;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+main{
+  flex: 1;
 }
 
 .errors {
   color: red;
   font-size: 40px;
-  margin-top: 60px;
+  margin-top: auto;
+  text-align: center;
+}
+
+.succ{
+  color: white;
+  font-size: 40px;
+  margin-top: auto;
   text-align: center;
 }
 
@@ -39,6 +50,10 @@ body {
   margin: auto;
   margin-top: 40px;
   position: relative;
+}
+
+.voti{
+  height: auto;
 }
 
 .form:hover {
@@ -88,6 +103,11 @@ body {
   transform: translateX(-50%);
 }
 
+.form .btn1{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .button1 {
   padding: 1em;
   padding-left: 2.1em;
@@ -114,6 +134,7 @@ footer {
   text-align: center;
   margin-top: 3%;
   padding: 3%;
+
 }
 
 nav {
@@ -171,4 +192,59 @@ nav div {
 table {
   text-align: center;
   font-size: 30px;
+}
+
+.docTitle{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.docenti{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.invio{
+  width: 150px;
+  height: 32px;
+  background: none;
+}
+
+.btn1{
+  display: flex;
+  justify-content: center;
+}
+
+.docenti .btn-secondary{
+  background-color: #171717;
+}
+
+.docenti .btn:hover{
+  background-color: 171717;
+}
+
+.docenti .btn:focus-visible{
+  background-color: 171717;
+}
+
+.list-group{
+  width: 20%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.list-group-item{
+  text-align: center;
+  font-size: larger;
+  --bs-list-group-bg: #171717;
+  --bs-list-group-color: whitesmoke;
+}
+
+.gVoti{
+  font-size: 30px;
+  margin-top: 40px;
+  width: 200px;
+  background: none;
 }

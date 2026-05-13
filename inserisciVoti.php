@@ -8,7 +8,7 @@ $nota = "";
 
 $ruolo = $_SESSION['ruolo'];
 
-if($ruolo != "docente"){
+if ($ruolo != "docente") {
     header("Location: dashboard");
     exit();
 }
@@ -41,38 +41,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         $studente_id = $_POST["studente_id"];
     }
-
-
-    if (empty($errors)) { 
-        if(inserisciVoto($valore, $tipo, $insegnamento_id, $studente_id,$nota)){
-            echo("voto inserito");
-        }
-    }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>voti</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
     <?php require_once "components/navbar.php"; ?>
-    <main>       
-        <?php if (!empty($errors)){ ?>
-            <div class="errors">
-                <ul>
-                    <?php foreach ($errors as $error){ ?>
-                        <li style="color: red"><?= $error ?></li>
-                    <?php }; ?>
-                </ul>
-            </div>
-        <?php }; ?>
+    <main>
 
-        <form method="POST" class="form">
+
+
+        <form method="POST" class="form voti">
 
             <h2 id="heading">Voti</h2>
 
@@ -116,7 +104,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     class="input-field">
             </div>
 
-            <div class="btn">
+            <?php if (!empty($errors)) { ?>
+                <div class="errors">
+                    <?php foreach ($errors as $error) { ?>
+                        <p><?= $error ?></p>
+                    <?php }; ?>
+                </div>
+            <?php }; ?>
+
+            <?php
+            if (empty($errors)) {
+                if (inserisciVoto($valore, $tipo, $insegnamento_id, $studente_id, $nota)) {
+            ?> <p class="succ">voto inserito</p><?php
+                                                }
+                                            }
+                                                    ?>
+
+            <div class="btn1">
                 <button type="submit" class="button1">inserisci voto</button>
             </div>
 
@@ -126,4 +130,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <?php require_once "components/footer.php" ?>
 </body>
+
 </html>

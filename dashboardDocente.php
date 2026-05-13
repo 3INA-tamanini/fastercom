@@ -31,35 +31,42 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard docente</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Dashboard Docenti</h1>
+    <main>
+    <h1 class="docTitle">Dashboard Docenti</h1>
 
+    <div class="docenti">
 <form method="POST" action="">
-    <select name="classe">
+    <select class="btn btn-secondary dropdown-toggle" name="classe">
         <?php foreach ($classe as $c) { ?>
             <option value="<?php echo $c['id'] ?>"><?php echo $c['nome'] ?></option>
         <?php } ?>
     </select>
-    <input type="submit">
+    <input type="submit" class="invio" value="Mostra studenti">
 </form>
+</div>
 
 <?php 
 if(count($studenti)==0){
-    echo "no studenti";
+    
 }else{?> 
-<ul>
+<ul class="list-group">
     <?php foreach ($studenti as $studente) {?>
-    <li> <?= $studente['nome']?> </li>
+    <li class="list-group-item"> <?= $studente['nome']?> </li>
 
 <?php } }?>
 </ul>
 
 
-<div class="btn">
-    <a href="gestioneVoti.php"><button>gestisci voti</button></a>
+<div class="btn1">
+    <a href="gestioneVoti.php"><button class="gVoti">Gestisci voti</button></a>
 </div>
+</main>
 </body>
 </html>
 
